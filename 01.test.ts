@@ -4,8 +4,13 @@ import {
   extractDataFromRawText,
   findHowManyTimesZeroIsHit,
   handlePositionIfOutsideRange,
-  Rotation,
-} from "./01-1.puzzle.ts";
+} from "./01.functions.ts";
+import { Rotation } from "./01.types.ts";
+import { puzzle1 } from "./01-1.puzzle.ts";
+
+it("[Puzzle 1-1] should return 1089", async () => {
+  expect(await puzzle1()).toBe(1089);
+});
 
 describe("extractDataFromRawText", () => {
   it("should extract three lines", () => {
