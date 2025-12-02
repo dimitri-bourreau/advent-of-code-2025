@@ -1,25 +1,4 @@
-/*
-https://adventofcode.com/2025/day/1
- */
-
-export interface Rotation {
-  direction: "L" | "R";
-  iterations: number;
-}
-
-const START_POSITION = 50;
-const NUMBERS_ON_DIAL = 99;
-
-(async () => {
-  const textData = await Deno.readTextFile("./01.data.txt");
-  const rotations: Rotation[] = extractDataFromRawText(textData);
-  const numberOfZeroSelections = findHowManyTimesZeroIsHit(
-    rotations,
-    START_POSITION,
-    NUMBERS_ON_DIAL
-  );
-  console.log(`Zero has been hit ${numberOfZeroSelections} times.`);
-})();
+import { Rotation } from "./01.types.ts";
 
 export function extractDataFromRawText(rawText: string): Rotation[] {
   return rawText

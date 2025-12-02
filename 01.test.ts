@@ -5,7 +5,7 @@ import {
   findHowManyTimesZeroIsHit,
   handlePositionIfOutsideRange,
   Rotation,
-} from "./01.puzzle.ts";
+} from "./01-1.puzzle.ts";
 
 describe("extractDataFromRawText", () => {
   it("should extract three lines", () => {
