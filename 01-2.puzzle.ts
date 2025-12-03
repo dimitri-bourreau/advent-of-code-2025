@@ -13,7 +13,8 @@ const NUMBERS_ON_DIAL = 99;
   const numberOfZeroSelections = findHowManyTimesZeroIsHit(
     rotations,
     START_POSITION,
-    NUMBERS_ON_DIAL
+    NUMBERS_ON_DIAL,
+    true
   );
-  console.log(`Zero has been hit ${numberOfZeroSelections} times.`);
+  console.log(`Zero has been hit and passed ${numberOfZeroSelections} times.`);
 })();

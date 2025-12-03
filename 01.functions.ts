@@ -13,19 +13,32 @@ export function extractDataFromRawText(rawText: string): Rotation[] {
 export function findHowManyTimesZeroIsHit(
   rotations: Rotation[],
   startPosition: number,
-  numbersOnDial: number
+  numbersOnDial: number,
+  countPassThrough: boolean = false
 ): number {
   let position = startPosition;
   let numberOfZeroSelections = 0;
 
   for (const { direction, iterations } of rotations) {
-    if (direction === "L") {
-      position -= iterations;
+    if (countPassThrough) {
+      for (let i = 0; i < iterations; i++) {
+        if (direction === "L") {
+          position--;
+        } else {
+          position++;
+        }
+        position = handlePositionIfOutsideRange(position, numbersOnDial);
+        if (position === 0) numberOfZeroSelections++;
+      }
     } else {
-      position += iterations;
+      if (direction === "L") {
+        position -= iterations;
+      } else {
+        position += iterations;
+      }
+      position = handlePositionIfOutsideRange(position, numbersOnDial);
+      if (position === 0) numberOfZeroSelections++;
     }
-    position = handlePositionIfOutsideRange(position, numbersOnDial);
-    if (position === 0) numberOfZeroSelections++;
   }
 
   return numberOfZeroSelections;

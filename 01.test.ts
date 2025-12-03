@@ -63,6 +63,39 @@ describe("findHowManyTimesZeroIsHit", () => {
     const numberOfZeroHits = findHowManyTimesZeroIsHit(rotations, 50, 99);
     expect(numberOfZeroHits).toBe(3);
   });
+
+  describe("with countPassThrough: true", () => {
+    it("should return 2 hits for default 50 and 99 numbers: -99 +99", () => {
+      const rotations: Rotation[] = [
+        { direction: "L", iterations: 99 },
+        { direction: "R", iterations: 99 },
+      ];
+      const numberOfZeroHits = findHowManyTimesZeroIsHit(rotations, 50, 99, true);
+      expect(numberOfZeroHits).toBe(2);
+    });
+
+    it("should return 1 hit for default 50 and 99 numbers: -50", () => {
+      const rotations: Rotation[] = [{ direction: "L", iterations: 50 }];
+      const numberOfZeroHits = findHowManyTimesZeroIsHit(rotations, 50, 99, true);
+      expect(numberOfZeroHits).toBe(1);
+    });
+
+    it("should return 3 hits for default 50 and 99 numbers: -50 -100 +100", () => {
+      const rotations: Rotation[] = [
+        { direction: "L", iterations: 50 },
+        { direction: "L", iterations: 100 },
+        { direction: "R", iterations: 100 },
+      ];
+      const numberOfZeroHits = findHowManyTimesZeroIsHit(rotations, 50, 99, true);
+      expect(numberOfZeroHits).toBe(3);
+    });
+
+    it("should return 10 hits when going around the dial 10 times", () => {
+      const rotations: Rotation[] = [{ direction: "R", iterations: 1000 }];
+      const numberOfZeroHits = findHowManyTimesZeroIsHit(rotations, 50, 99, true);
+      expect(numberOfZeroHits).toBe(10);
+    });
+  });
 });
 
 describe("handlePositionIfOutsideRange()", () => {
