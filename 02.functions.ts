@@ -1,7 +1,7 @@
 import { Range } from "./02.types.ts";
 
 export const parseRanges = (rawRanges: string): Range[] => {
-  return rawRanges.trim().replace("\n", "").split(",").map(parseRange);
+  return rawRanges.trim().replaceAll("\n", "").split(",").map(parseRange);
 };
 
 export const sumInvalidIDs = (
@@ -11,7 +11,7 @@ export const sumInvalidIDs = (
   const invalidIDs: number[][] = ranges.map((range) =>
     getInvalidIDs(range, countIDsWithSeveralRepetitions)
   );
-  return sumAllNumbers(invalidIDs.map(sumAllNumbers));
+  return sumAllNumbers(invalidIDs.flat());
 };
 
 function parseRange(range: string): Range {
@@ -29,13 +29,10 @@ export function getInvalidIDs(
   const invalidIds: number[] = [];
   for (let i = start; i <= end; i++) {
     const id = i.toString();
-    const idLengthIsEven = id.length % 2 === 0;
-    if (idLengthIsEven && id[0] !== "0") {
-      if (countIDsWithSeveralRepetitions) {
-        if (idIsMadeOfRepetitions(id)) invalidIds.push(i);
-      } else {
-        if (idIsMadeOfOneRepetition(id)) invalidIds.push(i);
-      }
+    if (countIDsWithSeveralRepetitions) {
+      if (idIsMadeOfRepetitions(id)) invalidIds.push(i);
+    } else {
+      if (idIsMadeOfOneRepetition(id)) invalidIds.push(i);
     }
   }
   return invalidIds;
@@ -46,6 +43,8 @@ function sumAllNumbers(numbers: number[]): number {
 }
 
 function idIsMadeOfOneRepetition(id: string): boolean {
+  const idLengthIsEven = id.length % 2 === 0;
+  if (!idLengthIsEven) return false;
   const halfIndex = id.length / 2;
   const firstHalf = id.slice(0, halfIndex);
   const lastHalf = id.slice(halfIndex);
@@ -53,5 +52,17 @@ function idIsMadeOfOneRepetition(id: string): boolean {
 }
 
 function idIsMadeOfRepetitions(id: string): boolean {
-  return true;
+  let foundRepetition = false;
+  for (
+    let lengthForPartToTest = 2;
+    lengthForPartToTest <= Math.floor(id.length / 2);
+    lengthForPartToTest++
+  ) {
+    if ((id.length / lengthForPartToTest) % 1 === 0) {
+      const partOfId = id.slice(0, lengthForPartToTest);
+      const repeatedPart = partOfId.repeat(id.length / lengthForPartToTest);
+      if (repeatedPart === id) foundRepetition = true;
+    }
+  }
+  return foundRepetition;
 }
