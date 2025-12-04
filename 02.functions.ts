@@ -5,20 +5,7 @@ export const parseRanges = (rawRanges: string): Range[] => {
 };
 
 export const countInvalidIDs = (ranges: Range[]): number => {
-  const counts = ranges.map(({ start, end }) => {
-    let count = 0;
-    for (let i = start; i <= end; i++) {
-      const rangeAsString = i.toString();
-      const idIsEven = rangeAsString.length % 2 === 0;
-      if (idIsEven) {
-        const halfIndex = rangeAsString.length / 2;
-        const firstHalf = rangeAsString.slice(0, halfIndex);
-        const lastHalf = rangeAsString.slice(halfIndex);
-        if (firstHalf === lastHalf) count++;
-      }
-    }
-    return count;
-  });
+  const counts = ranges.map(coundInvalidIDsForRange);
   return counts.reduce((a, b) => (a += b), 0);
 };
 
@@ -28,4 +15,19 @@ function parseRange(range: string): Range {
     start,
     end,
   };
+}
+
+function coundInvalidIDsForRange({ start, end }: Range): number {
+  let count = 0;
+  for (let i = start; i <= end; i++) {
+    const rangeAsString = i.toString();
+    const idIsEven = rangeAsString.length % 2 === 0;
+    if (idIsEven) {
+      const halfIndex = rangeAsString.length / 2;
+      const firstHalf = rangeAsString.slice(0, halfIndex);
+      const lastHalf = rangeAsString.slice(halfIndex);
+      if (firstHalf === lastHalf) count++;
+    }
+  }
+  return count;
 }
