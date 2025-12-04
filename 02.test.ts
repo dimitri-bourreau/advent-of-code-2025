@@ -25,5 +25,10 @@ describe("[Puzzle 2]", () => {
       const invalidIDsCount = countInvalidIDs([{ start: 11, end: 22 }]);
       expect(invalidIDsCount).toBe(2);
     });
+
+    it("should count 1 invalid IDs for range 95-115", () => {
+      const invalidIDsCount = countInvalidIDs([{ start: 95, end: 115 }]);
+      expect(invalidIDsCount).toBe(1);
+    });
   });
 });
