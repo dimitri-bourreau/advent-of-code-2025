@@ -1,12 +1,12 @@
 import { Range } from "./02.types.ts";
 
 export const parseRanges = (rawRanges: string): Range[] => {
-  return rawRanges.split(",").map(parseRange);
+  return rawRanges.trim().replace("\n", "").split(",").map(parseRange);
 };
 
-export const countInvalidIDs = (ranges: Range[]): number => {
-  const counts = ranges.map(countInvalidIDsForRange);
-  return counts.reduce((a, b) => (a += b), 0);
+export const sumInvalidIDs = (ranges: Range[]): number => {
+  const invalidIDs: number[][] = ranges.map(getInvalidIDs);
+  return sumAllNumbers(invalidIDs.map(sumAllNumbers));
 };
 
 function parseRange(range: string): Range {
@@ -17,17 +17,22 @@ function parseRange(range: string): Range {
   };
 }
 
-function countInvalidIDsForRange({ start, end }: Range): number {
-  let count = 0;
+export function getInvalidIDs({ start, end }: Range): number[] {
+  const invalidIds: number[] = [];
   for (let i = start; i <= end; i++) {
     const rangeAsString = i.toString();
-    const idIsEven = rangeAsString.length % 2 === 0;
-    if (idIsEven) {
+    const idLengthIsEven = rangeAsString.length % 2 === 0;
+    if (rangeAsString[0] === "0") invalidIds.push(i);
+    if (idLengthIsEven) {
       const halfIndex = rangeAsString.length / 2;
       const firstHalf = rangeAsString.slice(0, halfIndex);
       const lastHalf = rangeAsString.slice(halfIndex);
-      if (firstHalf === lastHalf) count++;
+      if (firstHalf === lastHalf) invalidIds.push(i);
     }
   }
-  return count;
+  return invalidIds;
+}
+
+function sumAllNumbers(numbers: number[]): number {
+  return numbers.reduce((a, b) => (a += b), 0);
 }
