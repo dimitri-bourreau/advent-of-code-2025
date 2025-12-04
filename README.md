@@ -10,7 +10,8 @@ deno test --allow-read
 
 # Completions
 
-✅ Done myself 🥲 Done with Claude
+✅ Done myself - 🥲 Done with Claude
 
 - 1.1 ✅
 - 1.2 🥲
+- 2.1 ✅
