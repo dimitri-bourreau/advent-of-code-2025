@@ -15,6 +15,7 @@ describe("[Puzzle 2]", () => {
       const resultWithSeveralRepetitions = await puzzle2(true);
       expect(resultWithSeveralRepetitions).not.toBe(25481660352);
       expect(resultWithSeveralRepetitions).not.toBe(65783535574);
+      expect(resultWithSeveralRepetitions).toBe(65794984339);
     });
   });
 

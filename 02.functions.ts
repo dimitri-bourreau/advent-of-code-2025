@@ -54,7 +54,7 @@ function idIsMadeOfOneRepetition(id: string): boolean {
 function idIsMadeOfRepetitions(id: string): boolean {
   let foundRepetition = false;
   for (
-    let lengthForPartToTest = 2;
+    let lengthForPartToTest = 1;
     lengthForPartToTest <= Math.floor(id.length / 2);
     lengthForPartToTest++
   ) {
