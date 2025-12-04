@@ -4,7 +4,7 @@ import { parseRanges, getInvalidIDs } from "./02.functions.ts";
 import { puzzle2 } from "./02-1.puzzle.ts";
 
 describe("[Puzzle 2]", () => {
-  it.only("Good result for Advend of code", async () => {
+  it("Good result for Advend of code", async () => {
     const result = await puzzle2();
     expect(result).not.toBe(644);
     expect(result).toBe(40398804950);

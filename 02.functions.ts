@@ -20,19 +20,24 @@ function parseRange(range: string): Range {
 export function getInvalidIDs({ start, end }: Range): number[] {
   const invalidIds: number[] = [];
   for (let i = start; i <= end; i++) {
-    const rangeAsString = i.toString();
-    const idLengthIsEven = rangeAsString.length % 2 === 0;
-    if (rangeAsString[0] === "0") invalidIds.push(i);
-    if (idLengthIsEven) {
-      const halfIndex = rangeAsString.length / 2;
-      const firstHalf = rangeAsString.slice(0, halfIndex);
-      const lastHalf = rangeAsString.slice(halfIndex);
-      if (firstHalf === lastHalf) invalidIds.push(i);
-    }
+    if (numberIsMadeOfOneRepetition(i)) invalidIds.push(i);
   }
   return invalidIds;
 }
 
 function sumAllNumbers(numbers: number[]): number {
   return numbers.reduce((a, b) => (a += b), 0);
+}
+
+function numberIsMadeOfOneRepetition(number: number): boolean {
+  const rangeAsString = number.toString();
+  const idLengthIsEven = rangeAsString.length % 2 === 0;
+  if (rangeAsString[0] === "0") return true;
+  if (idLengthIsEven) {
+    const halfIndex = rangeAsString.length / 2;
+    const firstHalf = rangeAsString.slice(0, halfIndex);
+    const lastHalf = rangeAsString.slice(halfIndex);
+    return firstHalf === lastHalf;
+  }
+  return false;
 }
