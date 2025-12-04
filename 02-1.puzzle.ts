@@ -8,6 +8,6 @@ export async function puzzle2() {
   const textData = await Deno.readTextFile("./02.data.txt");
   const ranges = parseRanges(textData);
   const invalidIDsCount = sumInvalidIDs(ranges);
-  console.log(`Invalid IDs found: ${invalidIDsCount}`);
+  console.log(`Invalid IDs' sum: ${invalidIDsCount}`);
   return invalidIDsCount;
 }
