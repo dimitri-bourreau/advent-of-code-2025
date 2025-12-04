@@ -5,7 +5,7 @@ export const parseRanges = (rawRanges: string): Range[] => {
 };
 
 export const countInvalidIDs = (ranges: Range[]): number => {
-  const counts = ranges.map(coundInvalidIDsForRange);
+  const counts = ranges.map(countInvalidIDsForRange);
   return counts.reduce((a, b) => (a += b), 0);
 };
 
@@ -17,7 +17,7 @@ function parseRange(range: string): Range {
   };
 }
 
-function coundInvalidIDsForRange({ start, end }: Range): number {
+function countInvalidIDsForRange({ start, end }: Range): number {
   let count = 0;
   for (let i = start; i <= end; i++) {
     const rangeAsString = i.toString();
