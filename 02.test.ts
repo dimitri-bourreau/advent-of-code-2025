@@ -1,6 +1,6 @@
 import { describe, it } from "jsr:@std/testing/bdd";
 import { expect } from "jsr:@std/expect";
-import { parseRanges } from "./02.functions.ts";
+import { countInvalidIDs, parseRanges } from "./02.functions.ts";
 
 describe("[Puzzle 2]", () => {
   describe("parseRanges()", () => {
@@ -17,6 +17,13 @@ describe("[Puzzle 2]", () => {
         { start: 1188511880, end: 1188511890 },
       ];
       expect(parsedRanges).toEqual(expectedRanges);
+    });
+  });
+
+  describe("countInvalidIDs()", () => {
+    it("should count 2 invalid IDs for range 11-22", () => {
+      const invalidIDsCount = countInvalidIDs([{ start: 11, end: 22 }]);
+      expect(invalidIDsCount).toBe(2);
     });
   });
 });
